@@ -16,7 +16,6 @@ class library:
     def compute_score(self, books):
         self.score = sum([books[b].score for b in self.books])
 
-
     def __str__(self):
         return "library " + str(self.id) + " takes " + str(self.T) + " days to sign up, possesses " + str(self.N) + " books, and can scan " + str(self.M) + " books per day"
 
