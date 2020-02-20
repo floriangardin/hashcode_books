@@ -1,0 +1,7 @@
+
+
+
+
+
+def score(submission):
+    pass
