@@ -1,5 +1,5 @@
 from src.parser import parse
-
+from src.scorer import Scorer
 
 
 class Submission:
@@ -31,22 +31,7 @@ class Submission:
 
 
 
-class Scorer:
 
-    def __init__(self, books):
-        self.books = books
-        self.score_dict = {key: val.score for key, val in books.items()}
-
-    def score(self, submission, D):
-
-        for library in self.libraries:
-
-            from pdb import set_trace; set_trace()
-
-            if False:
-                break
-
-        pass
 
 
 
