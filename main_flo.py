@@ -6,7 +6,8 @@ from src.submit import Submission
 
 
 list_file = [
-    "a_example.txt",
+    "b_read_on.txt",
+    #"a_example.txt"
 ]
 
 if __name__ == '__main__':
@@ -38,7 +39,4 @@ if __name__ == '__main__':
 
         score = scorer.score(result)
 
-
-
-        from pdb import set_trace; set_trace()
-
+        print('Score is ', score)

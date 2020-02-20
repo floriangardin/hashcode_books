@@ -10,9 +10,11 @@ class Scorer:
 
     def score(self, submission):
 
+        #from pdb import set_trace; set_trace()
         days = 0
         days_remaining = {}  # id_library: nb_days
 
+        print('Days', self.D)
 
         # Find days remaining
         for library_dict in submission:
@@ -23,19 +25,34 @@ class Scorer:
             days_remaining[id] = {'days_remaining': self.D - days, 'books': books}
 
             if days >= self.D:
+                print('I break')
                 break
 
         # Score
         points = 0
-        for library_id, remain in days_remaining.items():
 
+        books_completed = set()
+
+        for library_id, remain in days_remaining.items():
             days = remain['days_remaining']
             books = remain['books']
             d = 0
+            to_break = False
+            #print('Library', library_id, "days", d)
             for book in books:
+                points_multiplier = 1
+                if book in books_completed:
+                    points_multiplier = 0
 
-                points += self.score_dict[book]
+                books_completed.add(book)
+                #print('Book', book, "days", d, "points", points)
+                points += points_multiplier * self.score_dict[book]
                 d += 1/self.libraries[library_id].N
-                if d > days:
+                if d >= days:
+                    to_break = True
+                    print('I break 2 ')
                     break
+            if to_break:
+                break
+
         return points
