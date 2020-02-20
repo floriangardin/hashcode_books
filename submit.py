@@ -43,7 +43,7 @@ class Scorer:
 ## Test Easy solution
 if __name__ == '__main__':
 
-    books, libraries = parse("a_example.txt")
+    books, libraries, B, L, D = parse("a_example.txt")
 
     for l in libraries:
         print(libraries[l])

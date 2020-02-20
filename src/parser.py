@@ -51,7 +51,7 @@ def parse(filename):
                 lib_index = (i - 3) / 2
                 libraries[lib_index].add_books(set([int(a) for a in line.split(" ")]))
         i += 1
-    return books, libraries
+    return books, libraries, B, L, D
 
 
 if __name__ == "__main__":
