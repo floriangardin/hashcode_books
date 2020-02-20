@@ -1,4 +1,4 @@
-from src import parser, main
+from src import parser, main, submit
 from src.coeffs import Coeff, COEFF_BOOKS
 import random
 
@@ -35,22 +35,27 @@ def mix(element1, element2):
 
 if __name__ == "__main__":
 
-    filename = "b_read_on.txt"
+    filename = "f_libraries_of_the_world.txt"
     books, libraries, B, L, D = parser.parse(filename)
     scorer = Scorer(books, libraries, B, L, D)
 
-    nb_gen = 4
+    nb_gen = 10
     pop = [GenElement(Coeff(), Coeff()) for _ in range(nb_gen)]
 
-    nb_iter = 10
+    nb_iter = 20
 
     for i in range(nb_iter):
+        print("iteration: "+ str(i))
         compute_scores(books, libraries, B, L, D, pop, scorer)
         pop.sort(key=lambda element: element.score, reverse=True)
-        for e in pop:
-            print(e.score)
         print(pop[0].score)
         pop = pop[:int(len(pop)/2)]
         for i in range(len(pop)):
             pop.append(mix(pop[i], pop[int(len(pop)/2 - i - 1)]))
+
+    result = main.compute_result(books, libraries, B, L, D, pop[0].coeff)
+
+    submission = submit.Submission(result)
+
+    submission.submit('sub/gen/sub_' + filename)
 
