@@ -17,11 +17,11 @@ class Submission:
             f.write(str(len(self.libraries)))
             scanned_books = set()
             for library in self.libraries:
+                library['books'] = [b for b in library["books"] if b not in scanned_books]
+                scanned_books |= set(library['books'])
                 if len(library['books']) == 0:
                     continue
                 f.write('\n')
-                library['books'] = [b for b in library["books"] if b not in scanned_books]
-                scanned_books |= set(library['books'])
                 f.write(str(library['id_library']) + " " + str(len(library['books'])))
                 f.write('\n')
                 f.write(" ".join([str(book) for book in library['books']]))
