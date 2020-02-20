@@ -60,3 +60,5 @@ if __name__ == "__main__":
     books, libraries = parse("a_example.txt")
     for l in libraries:
         print(libraries[l])
+
+    from pdb import set_trace; set_trace()
