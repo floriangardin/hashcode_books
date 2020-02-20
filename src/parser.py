@@ -39,6 +39,8 @@ def parse(filename):
     books = {}
     libraries = {}
     for line in tabs:
+        if 2 * i > L:
+            break
         if i == 0:
             B = int(line.split(" ")[0])
             L = int(line.split(" ")[1])
@@ -51,6 +53,9 @@ def parse(filename):
         if i > 1:
             if i % 2 == 0:
                 lib_index = (i-2) / 2
+                print(line)
+                print(i)
+                print(line.split(" "))
                 libraries[int(lib_index)] = library(lib_index, int(line.split(" ")[0]), int(line.split(" ")[1]), int(line.split(" ")[2]))
             else:
                 lib_index = (i - 3) / 2
