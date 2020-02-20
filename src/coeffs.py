@@ -7,11 +7,13 @@ COEFF_SUBSCRIPTION = "COEFF_SUBSCRIPTION"
 
 class Coeff():
     def __init__(self):
-        self.values = {}
+        self.values = {
+            COEFF_BOOKS: 3 * random.random(),
+            COEFF_BOOKS_PER_DAY: 3 * random.random(),
+            COEFF_SUBSCRIPTION: 3 * random.random()
+        }
 
     def __getitem__(self, item):
-        if item not in self.values:
-            return random.random()
         return self.values[item]
 
     def __setitem__(self, key, value):
