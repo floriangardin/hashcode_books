@@ -15,15 +15,14 @@ class Submission:
     def submit(self, filename):
         with open(filename, 'w') as f:
             f.write(str(len(self.libraries)))
-            f.write('\n')
-
             for library in self.libraries:
                 if len(library['books']) == 0:
                     continue
+                f.write('\n')
                 f.write(str(library['id_library']) + " " + str(len(library['books'])))
                 f.write('\n')
                 f.write(" ".join([str(book) for book in library['books']]))
-                f.write('\n')
+
 
 
 
