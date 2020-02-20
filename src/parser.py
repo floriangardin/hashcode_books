@@ -9,6 +9,8 @@ class library:
         self.M = M
         self.books = set()
         self.score = 0
+        self.score_books = 0
+        self.unique_book = 0
 
     def add_books(self, s):
         self.books = s

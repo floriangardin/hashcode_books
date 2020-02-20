@@ -1,7 +1,7 @@
 import random
 
 from src import parser, submit
-from src.coeffs import Coeff, COEFF_BOOKS, COEFF_BOOKS_PER_DAY, COEFF_SUBSCRIPTION
+from src.coeffs import Coeff, COEFF_BOOKS, COEFF_BOOKS_PER_DAY, COEFF_SUBSCRIPTION, COEFF_UNIQUE_BOOK
 
 list_file = [
     "a_example.txt",
@@ -20,10 +20,35 @@ def compute_result(books, libraries, B, L, D, coeff):
     for l in libraries.values():
         for b in l.books:
             book_nb_occu[b] += 1
+    max_score_book = 0
+    max_temps_sub = 0
+    max_unique_book = 0
+    max_book_per_day = 0
+    min_score_book = 0
+    min_temps_sub = 0
+    min_unique_book = 0
+    min_book_per_day = 0
     for l in array_lib:
-        l.score = 0 * coeff[COEFF_BOOKS] * sum(books[b].score/(book_nb_occu[b] if book_nb_occu[b] > 0 else 1) for b in l.books) + \
-             l.M + \
-             (D - coeff[COEFF_SUBSCRIPTION] * l.T)
+        l.score_books = sum(books[b].score/(book_nb_occu[b] if book_nb_occu[b] > 0 else 1) for b in l.books)
+        max_score_book = max(max_score_book, l.score_books)
+        max_temps_sub = max(max_temps_sub, l.T)
+        l.unique_book = sum([1 for b in l.books if book_nb_occu[b] == 1])
+        max_unique_book = max(max_unique_book, l.unique_book)
+        min_score_book = min(max_score_book, l.score_books)
+        min_temps_sub = min(max_temps_sub, l.T)
+        min_unique_book = min(max_unique_book, l.unique_book)
+
+    den_score_book = max_score_book - min_score_book if max_score_book > min_score_book else 1
+    den_temps_sub = max_temps_sub - min_temps_sub if max_temps_sub > min_temps_sub else 1
+    den_unique_book = max_unique_book - min_unique_book if max_unique_book > min_unique_book else 1
+    den_book_per_day = max_book_per_day - min_book_per_day if max_book_per_day > min_book_per_day else 1
+    for l in array_lib:
+        # score inv prop temps d'inscription
+        # score
+        l.score = coeff[COEFF_BOOKS] * (l.score_books - min_score_book) / (den_score_book) + \
+             coeff[COEFF_BOOKS_PER_DAY] * (l.M - min_book_per_day) / (den_book_per_day) - \
+             coeff[COEFF_SUBSCRIPTION] * (l.T - min_temps_sub) / (den_temps_sub) + \
+             coeff[COEFF_UNIQUE_BOOK] * (l.unique_book - min_unique_book) / (den_unique_book)
     array_lib.sort(key=lambda l: l.score, reverse=True)
     for l in array_lib:
         result.append({

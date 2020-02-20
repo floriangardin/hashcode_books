@@ -35,31 +35,39 @@ def mix(element1, element2):
     return GenElement(element1.coeff, element2.coeff)
 
 
+list_file = [
+    "d_tough_choices.txt",
+    "e_so_many_books.txt",
+    "f_libraries_of_the_world.txt"
+]
+
 if __name__ == "__main__":
 
-    filename = "f_libraries_of_the_world.txt"
-    books, libraries, B, L, D = parser.parse(filename)
-    scorer = Scorer(books, libraries, B, L, D)
+    for filename in list_file:
 
-    nb_gen = 20
-    pop = [GenElement(Coeff(), Coeff()) for _ in range(nb_gen)]
+        filename = "f_libraries_of_the_world.txt"
+        books, libraries, B, L, D = parser.parse(filename)
+        scorer = Scorer(books, libraries, B, L, D)
 
-    nb_iter = 3
+        nb_gen = 20
+        pop = [GenElement(Coeff(), Coeff()) for _ in range(nb_gen)]
 
-    for i in range(nb_iter):
-        print("iteration: "+ str(i))
-        compute_scores(books, libraries, B, L, D, pop, scorer)
-        pop.sort(key=lambda element: element.score, reverse=True)
-        for e in pop:
-            print(e.score)
-        print(pop[0].score)
-        pop = pop[:int(len(pop)/2)]
-        for i in range(len(pop)):
-            pop.append(mix(pop[i], pop[int(len(pop)/2 - i - 1)]))
+        nb_iter = 3
 
-    result = main.compute_result(books, libraries, B, L, D, pop[0].coeff)
+        for i in range(nb_iter):
+            print("iteration: "+ str(i))
+            compute_scores(books, libraries, B, L, D, pop, scorer)
+            pop.sort(key=lambda element: element.score, reverse=True)
+            for e in pop:
+                print(e.score)
+            print(pop[0].score)
+            pop = pop[:int(len(pop)/2)]
+            for i in range(len(pop)):
+                pop.append(mix(pop[i], pop[int(len(pop)/2 - i - 1)]))
 
-    submission = submit.Submission(result)
+        result = main.compute_result(books, libraries, B, L, D, pop[0].coeff)
+    
+        submission = submit.Submission(result)
 
-    submission.submit('sub/gen/sub_' + filename)
+        submission.submit('sub/gen/sub_' + filename)
 
