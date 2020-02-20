@@ -17,8 +17,9 @@ class library:
 
 
 class book:
-    def __init__(self, id):
+    def __init__(self, id, score):
         self.id = id
+        self.score = score
 
 
 def parse(filename):
@@ -40,7 +41,7 @@ def parse(filename):
         if i == 1:
             id = 0
             for s in line.split(" "):
-                books[id] = book(int(s))
+                books[id] = book(id, int(s))
                 id += 1
         if i > 1:
             if i % 2 == 0:
