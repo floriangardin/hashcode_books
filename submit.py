@@ -3,7 +3,7 @@ from src.parser import parse
 
 
 class Submission:
-    def __init__(self, librairies, ):
+    def __init__(self, librairies):
         """
         librairies : {'id_library': int, books: [int]}
         :param nb_librairies:
