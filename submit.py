@@ -1,8 +1,7 @@
+from src.parser import parse
 
 
 
-class Submission:
-
-    def __init__(self, librairies_order, ):
-        print('tralala')
-        pass
+books, libraries = parse("a_example.txt")
+    for l in libraries:
+        print(libraries[l])
