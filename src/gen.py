@@ -45,7 +45,6 @@ if __name__ == "__main__":
 
     for filename in list_file:
 
-        filename = "f_libraries_of_the_world.txt"
         books, libraries, B, L, D = parser.parse(filename)
         scorer = Scorer(books, libraries, B, L, D)
 
@@ -66,7 +65,7 @@ if __name__ == "__main__":
                 pop.append(mix(pop[i], pop[int(len(pop)/2 - i - 1)]))
 
         result = main.compute_result(books, libraries, B, L, D, pop[0].coeff)
-    
+
         submission = submit.Submission(result)
 
         submission.submit('sub/gen/sub_' + filename)
