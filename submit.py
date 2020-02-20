@@ -27,8 +27,8 @@ for l in libraries:
 
 ## Easy solution
 
-
-submission = Submission(librairies, books)
+from pdb import set_trace; set_trace()
+submission = Submission(librairies)
 
 submission.submit('data/submission.txt')
 
