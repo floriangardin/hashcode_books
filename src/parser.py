@@ -54,6 +54,8 @@ def parse(filename):
     return books, libraries
 
 
+def 
+
 if __name__ == "__main__":
     books, libraries = parse("a_example.txt")
     for l in libraries:
