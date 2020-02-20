@@ -4,18 +4,18 @@ import random
 
 from src.scorer import Scorer
 
+import random
+#random.seed(22)
+#print(random.random())
+
 
 class GenElement:
-
-    def __init__(self):
-        self.coeff = Coeff()
-        self.score = 0
 
     def __init__(self, coeff1, coeff2):
         self.coeff = Coeff()
         i = 0
         for c in self.coeff.values.keys():
-            self.coeff[c] = coeff1[c] if i % 2 == 0 else coeff2[c]
+            self.coeff[c] = coeff1[c] if random.random() > 0.5 else coeff2[c]
             i+=1
 
 
@@ -49,6 +49,8 @@ if __name__ == "__main__":
         pop.sort(key=lambda element: element.score, reverse=True)
         for e in pop:
             print(e.score)
+
+
         print(pop[0].score)
         pop = pop[:int(len(pop)/2)]
         for i in range(len(pop)):
