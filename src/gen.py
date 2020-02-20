@@ -4,18 +4,20 @@ import random
 
 from src.scorer import Scorer
 
+import random
+#random.seed(22)
+#print(random.random())
+
 
 class GenElement:
-
-    def __init__(self):
-        self.coeff = Coeff()
-        self.score = 0
 
     def __init__(self, coeff1, coeff2):
         self.coeff = Coeff()
         i = 0
         for c in self.coeff.values.keys():
-            self.coeff[c] = coeff1[c] if i % 2 == 0 else coeff2[c]
+            self.coeff[c] = coeff1[c] if random.random() > 0.5 else coeff2[c]
+            if random.random() > 0.9:
+                self.coeff[c] = 3 * random.random()
             i+=1
 
 
@@ -39,15 +41,17 @@ if __name__ == "__main__":
     books, libraries, B, L, D = parser.parse(filename)
     scorer = Scorer(books, libraries, B, L, D)
 
-    nb_gen = 10
+    nb_gen = 20
     pop = [GenElement(Coeff(), Coeff()) for _ in range(nb_gen)]
 
-    nb_iter = 20
+    nb_iter = 3
 
     for i in range(nb_iter):
         print("iteration: "+ str(i))
         compute_scores(books, libraries, B, L, D, pop, scorer)
         pop.sort(key=lambda element: element.score, reverse=True)
+        for e in pop:
+            print(e.score)
         print(pop[0].score)
         pop = pop[:int(len(pop)/2)]
         for i in range(len(pop)):
