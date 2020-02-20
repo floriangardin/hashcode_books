@@ -1,4 +1,7 @@
+import random
+
 from src import parser, submit
+from src.coeffs import Coeff, COEFF_BOOKS, COEFF_BOOKS_PER_DAY, COEFF_SUBSCRIPTION
 
 list_file = [
     "a_example.txt",
@@ -10,19 +13,20 @@ list_file = [
 ]
 
 
+
 def compute_result(books, libraries, B, L, D):
     result = []
     array_lib = list(libraries.values())
     array_lib.sort(key=lambda l: l.score, reverse=True)
     book_nb_occu = {b.id : 0 for b in books.values()}
+    coeff = Coeff()
     for l in libraries.values():
         for b in l.books:
             book_nb_occu[b] += 1
-    for b in books:
-        if book_nb_occu[b] > 0:
-            books[b].score /= book_nb_occu[b]
     for l in array_lib:
-        l.compute_score(books)
+        l.score = coeff[COEFF_BOOKS] * sum(books[b].score/(book_nb_occu[b] if book_nb_occu[b] > 0 else 1) for b in l.books) + \
+            coeff[COEFF_BOOKS_PER_DAY] * l.M - \
+            coeff[COEFF_SUBSCRIPTION] * l.T
     array_lib.sort(key=lambda l: l.score, reverse=True)
     for l in array_lib:
         result.append({

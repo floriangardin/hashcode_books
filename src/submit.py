@@ -14,7 +14,12 @@ class Submission:
 
     def submit(self, filename):
         with open(filename, 'w') as f:
-            f.write(str(len(self.libraries)))
+            scanned_books = set()
+            for library in self.libraries:
+                library['books'] = [b for b in library["books"] if b not in scanned_books]
+                scanned_books |= set(library['books'])
+
+            f.write(str(len([l for l in self.libraries if len(l["books"]) > 0])))
             for library in self.libraries:
                 if len(library['books']) == 0:
                     continue
