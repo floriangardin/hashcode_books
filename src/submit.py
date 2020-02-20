@@ -12,11 +12,7 @@ class Submission:
         self.libraries = libraries
 
 
-
     def submit(self, filename):
-
-
-
         with open(filename, 'w') as f:
             f.write(str(len(self.libraries)))
             f.write('\n')
