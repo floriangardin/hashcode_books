@@ -12,7 +12,7 @@ list_file = [
 if __name__ == "__main__":
 
     for file in list_file:
-        books, libraries = parser.parse(file)
+        books, libraries, B, L, D = parser.parse(file)
 
         result = []
 
