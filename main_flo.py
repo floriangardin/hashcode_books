@@ -6,8 +6,9 @@ from src.submit import Submission
 
 
 list_file = [
-    "b_read_on.txt",
-    #"a_example.txt"
+    #"b_read_on.txt",
+    #"a_example.txt",
+    "d_tough_choices.txt"
 ]
 
 if __name__ == '__main__':
