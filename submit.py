@@ -29,6 +29,14 @@ class Submission:
 
 
 
+class Scorer:
+
+    def __init__(self, books):
+        self.books = books
+        self.score_dict = {book['id']: book['score'] for book in books}
+
+    def score(self, submission):
+        pass
 
 
 
@@ -36,9 +44,14 @@ class Submission:
 if __name__ == '__main__':
 
     books, libraries = parse("a_example.txt")
+
     for l in libraries:
         print(libraries[l])
 
+    scorer = Scorer(books)
+    from pdb import set_trace;
+
+    set_trace()
 
     submission = Submission([{'id_library': 1, 'books': [1, 2, 3 ]},
                              {'id_library': 2, 'books': [5, 6, 7]}])
